@@ -8,7 +8,7 @@ import (
 	"hash"
 	"math/big"
 
-	"github.com/dis2/bls12"
+	"github.com/philsippl/bls12"
 	"golang.org/x/crypto/blake2b"
 )
 

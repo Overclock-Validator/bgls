@@ -2,7 +2,7 @@
 This library currently supports Bls12-381, and Alt bn128. Currently it wraps existing golang libraries into a common interface, and provides hashing methods for these curves.
 ### Bls12-381
 
-This is the set of curves which zcash is switching too. Its official documentation is located [here](https://github.com/ebfull/pairing/tree/master/src/bls12_381). The underlying `bls12-381` implementation used in this library is [dis2's repository](https://github.com/dis2/bls12).
+This is the set of curves which zcash is switching too. Its official documentation is located [here](https://github.com/ebfull/pairing/tree/master/src/bls12_381). The underlying `bls12-381` implementation used in this library is [dis2's repository](https://github.com/philsippl/bls12).
 
 ### Alt bn128
 

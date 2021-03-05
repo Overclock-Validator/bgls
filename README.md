@@ -7,7 +7,7 @@ Aggregate and Multi Signatures based on BGLS over Alt bn128 and BLS12-381
 This library provides no security against side channel attacks. We provide no security guarantees of this implementation.
 
 ## Design
-The goal of this library is to create an efficient and secure ad hoc aggregate and multi signature scheme. It supports the curves [bls12-381](https://github.com/dis2/bls12) and [alt bn128](https://github.com/ethereum/go-ethereum/tree/master/crypto/bn256). It implements hashing of arbitrary byte data to curve points, the standard BGLS scheme for aggregate signatures, and a custom multi signature scheme. Further documentation for the bgls scheme is contained [here](bgls/README.md)
+The goal of this library is to create an efficient and secure ad hoc aggregate and multi signature scheme. It supports the curves [bls12-381](https://github.com/philsippl/bls12) and [alt bn128](https://github.com/ethereum/go-ethereum/tree/master/crypto/bn256). It implements hashing of arbitrary byte data to curve points, the standard BGLS scheme for aggregate signatures, and a custom multi signature scheme. Further documentation for the bgls scheme is contained [here](bgls/README.md)
 
 ## Curves
 See [here](curves/README.md) for documentation on the supported curves.
