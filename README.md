@@ -1,6 +1,6 @@
 # BGLS
-Master: [![Build Status](https://travis-ci.org/Project-Arda/bgls.svg?branch=master)](https://travis-ci.org/Project-Arda/bgls)
-Develop: [![Build Status](https://travis-ci.org/Project-Arda/bgls.svg?branch=develop)](https://travis-ci.org/Project-Arda/bgls)
+Master: [![Build Status](https://travis-ci.org/philsippl/bgls.svg?branch=master)](https://travis-ci.org/philsippl/bgls)
+Develop: [![Build Status](https://travis-ci.org/philsippl/bgls.svg?branch=develop)](https://travis-ci.org/philsippl/bgls)
 
 Aggregate and Multi Signatures based on BGLS over Alt bn128 and BLS12-381
 
@@ -31,7 +31,7 @@ BenchmarkPairGT-8               	    1000	   1539918 ns/op
 The following benchmarks are done with altbn128, before the product of pairings
 abstraction was included. These need to be updated.
 ```
-$ go test github.com/Project-Arda/bgls/bgls/  -v -bench .
+$ go test github.com/philsippl/bgls/bgls/  -v -bench .
 BenchmarkKeygen-8                  	    3000	    434484 ns/op
 BenchmarkAltBnHashToCurve-8        	   20000	     91947 ns/op
 BenchmarkSigning-8                 	   10000	    218670 ns/op
@@ -44,7 +44,7 @@ BenchmarkMultiVerification1024-8   	     500	   3243045 ns/op
 BenchmarkMultiVerification2048-8   	     300	   4325183 ns/op
 BenchmarkAggregateVerification-8   	    5000	    361270 ns/op
 PASS
-ok  	github.com/Project-Arda/bgls	31.043s
+ok  	github.com/philsippl/bgls	31.043s
 ```
 For comparison, the ed25519 implementation in go yields much faster key generation signing and single signature verification. However, at ~145 microseconds per verification, the multi signature verification is actually faster beyond ~26 signatures.
 ```

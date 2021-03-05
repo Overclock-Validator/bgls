@@ -7,7 +7,7 @@ import (
 	"crypto/rand"
 	"math/big"
 
-	. "github.com/Project-Arda/bgls/curves" // nolint: golint
+	. "github.com/philsippl/bgls/curves" // nolint: golint
 )
 
 // Privkey holds the x,y pair

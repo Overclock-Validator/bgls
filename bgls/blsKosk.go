@@ -36,7 +36,7 @@ package bgls
 import (
 	"math/big"
 
-	. "github.com/Project-Arda/bgls/curves" // nolint: golint
+	. "github.com/philsippl/bgls/curves" // nolint: golint
 )
 
 // Authenticate generates an Aggregatable Authentication for a given secret key.

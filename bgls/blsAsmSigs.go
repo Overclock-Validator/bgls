@@ -4,7 +4,7 @@
 package bgls
 
 import (
-	. "github.com/Project-Arda/bgls/curves" // nolint: golint
+	. "github.com/philsippl/bgls/curves" // nolint: golint
 	"math/big"
 	"strconv"
 )
