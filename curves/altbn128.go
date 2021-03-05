@@ -8,8 +8,7 @@ import (
 	"math/big"
 
 	"github.com/dchest/blake2b"
-	"github.com/ethereum/go-ethereum/crypto/bn256/cloudflare"
-	gosha3 "github.com/ethereum/go-ethereum/crypto/sha3"
+	"golang.org/x/crypto/bn256"
 	"golang.org/x/crypto/sha3"
 )
 
@@ -515,7 +514,7 @@ func (curve *altbn128) HashToG1(message []byte) Point {
 // EthereumSum256 returns the Keccak3-256 digest of the data. This is because Ethereum
 // uses a non-standard hashing algo.
 func EthereumSum256(data []byte) (digest [32]byte) {
-	h := gosha3.NewKeccak256()
+	h := sha3.NewKeccak256()
 	h.Write(data)
 	h.Sum(digest[:0])
 	return
