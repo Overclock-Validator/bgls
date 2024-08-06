@@ -8,6 +8,7 @@ import (
 	"math/big"
 
 	"github.com/dchest/blake2b"
+	bn256 "github.com/ethereum/go-ethereum/crypto/bn256/cloudflare"
 	"golang.org/x/crypto/sha3"
 )
 
