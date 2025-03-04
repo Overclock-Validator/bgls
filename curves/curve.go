@@ -17,8 +17,8 @@ type CurveSystem interface {
 
 	// GTToAffineCoords(PointT) (*big.Int, *big.Int)
 
-	UnmarshalG1([]byte) (Point, bool)
-	UnmarshalG2([]byte) (Point, bool)
+	UnmarshalG1([]byte, bool) (Point, bool)
+	UnmarshalG2([]byte, bool) (Point, bool)
 	UnmarshalGT([]byte) (PointT, bool)
 
 	GetG1() Point

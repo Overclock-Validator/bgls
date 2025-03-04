@@ -49,7 +49,7 @@ func (curve *altbn128) MakeG1Point(coords []*big.Int, check bool) (Point, bool) 
 	result := new(bn256.G1)
 	var ok bool
 	_, ok = result.Unmarshal(ret)
-	if !ok {
+	if check && !ok {
 		return nil, false
 	}
 	return &altbn128Point1{result}, true
@@ -171,7 +171,7 @@ func (curve *altbn128) MakeG2Point(coords []*big.Int, check bool) (Point, bool) 
 	result := new(bn256.G2)
 	var ok bool
 	_, ok = result.Unmarshal(ret)
-	if !ok {
+	if check && !ok {
 		return nil, false
 	}
 	return &altbn128Point2{result}, true
@@ -296,13 +296,14 @@ func (gTPoint altbn128PointT) Mul(scalar *big.Int) PointT {
 	return ret
 }
 
-func (curve *altbn128) UnmarshalG1(data []byte) (Point, bool) {
+func (curve *altbn128) UnmarshalG1(data []byte, check bool) (Point, bool) {
 	if data == nil || (len(data) != 64 && len(data) != 32) {
 		return nil, false
 	}
 	if len(data) == 64 { // No point compression
 		curvePoint := new(bn256.G1)
-		if _, ok := curvePoint.Unmarshal(data); ok {
+		_, ok := curvePoint.Unmarshal(data)
+		if check && ok || !check {
 			return &altbn128Point1{curvePoint}, true
 		}
 	} else if len(data) == 32 { // Point compression
@@ -325,18 +326,19 @@ func (curve *altbn128) UnmarshalG1(data []byte) (Point, bool) {
 		} else if !ySgn && cmpRes == 1 {
 			y.Sub(altbnG1Q, y)
 		}
-		return Altbn128.MakeG1Point([]*big.Int{x, y}, true)
+		return Altbn128.MakeG1Point([]*big.Int{x, y}, check)
 	}
 	return nil, false
 }
 
-func (curve *altbn128) UnmarshalG2(data []byte) (Point, bool) {
+func (curve *altbn128) UnmarshalG2(data []byte, check bool) (Point, bool) {
 	if data == nil || (len(data) != 64 && len(data) != 128) {
 		return nil, false
 	}
 	if len(data) == 128 { // No point compression
 		curvePoint := new(bn256.G2)
-		if _, ok := curvePoint.Unmarshal(data); ok {
+		_, ok := curvePoint.Unmarshal(data)
+		if check && ok || !check {
 			return &altbn128Point2{curvePoint}, true
 		}
 	} else if len(data) == 64 { // Point compression
@@ -353,7 +355,7 @@ func (curve *altbn128) UnmarshalG2(data []byte) (Point, bool) {
 		xi := new(big.Int).SetBytes(xiBytes)
 		xr := new(big.Int).SetBytes(xrBytes)
 		if xi.Cmp(zero) == 0 && xr.Cmp(zero) == 0 {
-			return Altbn128.MakeG2Point([]*big.Int{zero, zero, zero, zero}, false)
+			return Altbn128.MakeG2Point([]*big.Int{zero, zero, zero, zero}, check)
 		}
 		x := &complexNum{xi, xr}
 		y := Altbn128.g2XToYSquared(x)
@@ -373,7 +375,7 @@ func (curve *altbn128) UnmarshalG2(data []byte) (Point, bool) {
 		} else if !yrSgn && cmpResRe == 1 {
 			y.re.Sub(altbnG1Q, y.re)
 		}
-		return Altbn128.MakeG2Point([]*big.Int{x.im, x.re, y.im, y.re}, false)
+		return Altbn128.MakeG2Point([]*big.Int{x.im, x.re, y.im, y.re}, check)
 	}
 	return nil, false
 }
