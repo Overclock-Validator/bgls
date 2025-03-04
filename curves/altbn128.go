@@ -47,9 +47,9 @@ func (curve *altbn128) MakeG1Point(coords []*big.Int, check bool) (Point, bool) 
 	copy(ret[32-len(xBytes):], xBytes)
 	copy(ret[64-len(yBytes):], yBytes)
 	result := new(bn256.G1)
-	var ok error
+	var ok bool
 	_, ok = result.Unmarshal(ret)
-	if ok != nil {
+	if !ok {
 		return nil, false
 	}
 	return &altbn128Point1{result}, true
@@ -169,9 +169,9 @@ func (curve *altbn128) MakeG2Point(coords []*big.Int, check bool) (Point, bool) 
 	copy(ret[64:], y0Bytes)
 	copy(ret[96:], y1Bytes)
 	result := new(bn256.G2)
-	var ok error
+	var ok bool
 	_, ok = result.Unmarshal(ret)
-	if ok != nil {
+	if !ok {
 		return nil, false
 	}
 	return &altbn128Point2{result}, true
@@ -298,7 +298,7 @@ func (curve *altbn128) UnmarshalG1(data []byte) (Point, bool) {
 	}
 	if len(data) == 64 { // No point compression
 		curvePoint := new(bn256.G1)
-		if _, ok := curvePoint.Unmarshal(data); ok == nil {
+		if _, ok := curvePoint.Unmarshal(data); ok {
 			return &altbn128Point1{curvePoint}, true
 		}
 	} else if len(data) == 32 { // Point compression
@@ -332,7 +332,7 @@ func (curve *altbn128) UnmarshalG2(data []byte) (Point, bool) {
 	}
 	if len(data) == 128 { // No point compression
 		curvePoint := new(bn256.G2)
-		if _, ok := curvePoint.Unmarshal(data); ok == nil {
+		if _, ok := curvePoint.Unmarshal(data); ok {
 			return &altbn128Point2{curvePoint}, true
 		}
 	} else if len(data) == 64 { // Point compression
@@ -379,7 +379,7 @@ func (curve *altbn128) UnmarshalGT(data []byte) (PointT, bool) {
 		return nil, false
 	}
 	curvePoint := new(bn256.GT)
-	if _, ok := curvePoint.Unmarshal(data); ok == nil {
+	if _, ok := curvePoint.Unmarshal(data); ok {
 		return altbn128PointT{curvePoint}, true
 	}
 	return nil, false
