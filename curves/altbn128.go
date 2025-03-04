@@ -269,6 +269,10 @@ func (gTPoint altbn128PointT) Add(otherPointT PointT) (PointT, bool) {
 	return nil, false
 }
 
+func (gTPoint altbn128PointT) IsOne() bool {
+	return gTPoint.IsOne()
+}
+
 func (gTPoint altbn128PointT) Copy() PointT {
 	result := new(bn256.GT)
 	result.Unmarshal(gTPoint.point.Marshal())

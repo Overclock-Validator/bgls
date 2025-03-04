@@ -66,6 +66,7 @@ type PointT interface {
 	Equals(PointT) bool
 	Marshal() []byte
 	Mul(*big.Int) PointT
+	IsOne() bool
 	// ToAffineCoords() (*big.Int, *big.Int)
 }
 
