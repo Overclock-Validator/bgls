@@ -453,7 +453,7 @@ func (curve *altbn128) getFTHashParams() (*big.Int, *big.Int) {
 	return altbnSqrtn3, altbnZ
 }
 
-//curve specific constants
+// curve specific constants
 var altbnG1B = big.NewInt(3)
 var altbnG1Q, _ = new(big.Int).SetString("21888242871839275222246405745257275088696311157297823662689037894645226208583", 10)
 var altbnG1QDiv2 = new(big.Int).Div(altbnG1Q, two)
@@ -462,10 +462,10 @@ var altbnG2BRe, _ = new(big.Int).SetString("194858747517593547710242392610217205
 var altbnG2BIm, _ = new(big.Int).SetString("266929791119991161246907387137283842545076965332900288569378510910307636690", 10)
 var altbnG2B = &complexNum{altbnG2BIm, altbnG2BRe}
 
-//precomputed Z = (-1 + sqrt(-3))/2 in Fq
+// precomputed Z = (-1 + sqrt(-3))/2 in Fq
 var altbnZ, _ = new(big.Int).SetString("2203960485148121921418603742825762020974279258880205651966", 10)
 
-//precomputed sqrt(-3) in Fq
+// precomputed sqrt(-3) in Fq
 var altbnSqrtn3, _ = new(big.Int).SetString("4407920970296243842837207485651524041948558517760411303933", 10)
 
 var altbnG1 = &altbn128Point1{new(bn256.G1).ScalarBaseMult(one)}
@@ -514,7 +514,7 @@ func (curve *altbn128) HashToG1(message []byte) Point {
 // EthereumSum256 returns the Keccak3-256 digest of the data. This is because Ethereum
 // uses a non-standard hashing algo.
 func EthereumSum256(data []byte) (digest [32]byte) {
-	h := sha3.NewKeccak256()
+	h := sha3.NewLegacyKeccak256()
 	h.Write(data)
 	h.Sum(digest[:0])
 	return
