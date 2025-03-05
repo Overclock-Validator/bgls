@@ -7,8 +7,8 @@ import (
 	"bytes"
 	"math/big"
 
+	"github.com/cloudflare/bn256"
 	"github.com/dchest/blake2b"
-	"golang.org/x/crypto/bn256"
 	"golang.org/x/crypto/sha3"
 )
 
@@ -47,9 +47,9 @@ func (curve *altbn128) MakeG1Point(coords []*big.Int, check bool) (Point, bool) 
 	copy(ret[32-len(xBytes):], xBytes)
 	copy(ret[64-len(yBytes):], yBytes)
 	result := new(bn256.G1)
-	var ok bool
-	_, ok = result.Unmarshal(ret)
-	if check && !ok {
+
+	_, err := result.Unmarshal(ret)
+	if check && err != nil {
 		return nil, false
 	}
 	return &altbn128Point1{result}, true
@@ -143,6 +143,33 @@ func (curve *altbn128) PairingProduct(g1Points []Point, g2Points []Point) (Point
 	return concurrentPairingProduct(curve, g1Points, g2Points)
 }
 
+/*func (curve *altbn128) PairingCheck(a []Point, b []Point) bool {
+	bn256.Miller()
+	acc := new(gfP12)
+	acc.SetOne()
+
+	for i := 0; i < len(a); i++ {
+		if a[i].p.IsInfinity() || b[i].p.IsInfinity() {
+			continue
+		}
+		acc.Mul(acc, miller(b[i].p, a[i].p))
+	}
+	return finalExponentiation(acc).IsOne()
+}*/
+
+/*func PairingCheck(a []*G1, b []*G2) bool {
+	acc := new(gfP12)
+	acc.SetOne()
+
+	for i := 0; i < len(a); i++ {
+		if a[i].p.IsInfinity() || b[i].p.IsInfinity() {
+			continue
+		}
+		acc.Mul(acc, miller(b[i].p, a[i].p))
+	}
+	return finalExponentiation(acc).IsOne()
+}*/
+
 // ToAffineCoords returns the affine coordinate representation of the point
 // in the form: [X, Y]
 func (g1Point *altbn128Point1) ToAffineCoords() []*big.Int {
@@ -169,9 +196,9 @@ func (curve *altbn128) MakeG2Point(coords []*big.Int, check bool) (Point, bool) 
 	copy(ret[64:], y0Bytes)
 	copy(ret[96:], y1Bytes)
 	result := new(bn256.G2)
-	var ok bool
-	_, ok = result.Unmarshal(ret)
-	if check && !ok {
+
+	_, err := result.Unmarshal(ret)
+	if check && err != nil {
 		return nil, false
 	}
 	return &altbn128Point2{result}, true
@@ -302,8 +329,8 @@ func (curve *altbn128) UnmarshalG1(data []byte, check bool) (Point, bool) {
 	}
 	if len(data) == 64 { // No point compression
 		curvePoint := new(bn256.G1)
-		_, ok := curvePoint.Unmarshal(data)
-		if check && ok || !check {
+		_, err := curvePoint.Unmarshal(data)
+		if (check && err != nil) || !check {
 			return &altbn128Point1{curvePoint}, true
 		}
 	} else if len(data) == 32 { // Point compression
@@ -337,8 +364,8 @@ func (curve *altbn128) UnmarshalG2(data []byte, check bool) (Point, bool) {
 	}
 	if len(data) == 128 { // No point compression
 		curvePoint := new(bn256.G2)
-		_, ok := curvePoint.Unmarshal(data)
-		if check && ok || !check {
+		_, err := curvePoint.Unmarshal(data)
+		if (check && err != nil) || !check {
 			return &altbn128Point2{curvePoint}, true
 		}
 	} else if len(data) == 64 { // Point compression
@@ -385,7 +412,7 @@ func (curve *altbn128) UnmarshalGT(data []byte) (PointT, bool) {
 		return nil, false
 	}
 	curvePoint := new(bn256.GT)
-	if _, ok := curvePoint.Unmarshal(data); ok {
+	if _, err := curvePoint.Unmarshal(data); err == nil {
 		return altbn128PointT{curvePoint}, true
 	}
 	return nil, false
