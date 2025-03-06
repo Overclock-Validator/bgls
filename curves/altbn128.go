@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"math/big"
 
-	"github.com/cloudflare/bn256"
+	"github.com/Overclock-Validator/crypto/bn256"
 	"github.com/dchest/blake2b"
 	"golang.org/x/crypto/sha3"
 )
@@ -48,8 +48,8 @@ func (curve *altbn128) MakeG1Point(coords []*big.Int, check bool) (Point, bool) 
 	copy(ret[64-len(yBytes):], yBytes)
 	result := new(bn256.G1)
 
-	_, err := result.Unmarshal(ret)
-	if check && err != nil {
+	_, success := result.Unmarshal(ret)
+	if check && !success {
 		return nil, false
 	}
 	return &altbn128Point1{result}, true
@@ -197,8 +197,8 @@ func (curve *altbn128) MakeG2Point(coords []*big.Int, check bool) (Point, bool) 
 	copy(ret[96:], y1Bytes)
 	result := new(bn256.G2)
 
-	_, err := result.Unmarshal(ret)
-	if check && err != nil {
+	_, success := result.Unmarshal(ret)
+	if check && !success {
 		return nil, false
 	}
 	return &altbn128Point2{result}, true
@@ -329,8 +329,8 @@ func (curve *altbn128) UnmarshalG1(data []byte, check bool) (Point, bool) {
 	}
 	if len(data) == 64 { // No point compression
 		curvePoint := new(bn256.G1)
-		_, err := curvePoint.Unmarshal(data)
-		if (check && err != nil) || !check {
+		_, success := curvePoint.Unmarshal(data)
+		if (check && !success) || !check {
 			return &altbn128Point1{curvePoint}, true
 		}
 	} else if len(data) == 32 { // Point compression
@@ -364,8 +364,8 @@ func (curve *altbn128) UnmarshalG2(data []byte, check bool) (Point, bool) {
 	}
 	if len(data) == 128 { // No point compression
 		curvePoint := new(bn256.G2)
-		_, err := curvePoint.Unmarshal(data)
-		if (check && err != nil) || !check {
+		_, success := curvePoint.Unmarshal(data)
+		if (check && !success) || !check {
 			return &altbn128Point2{curvePoint}, true
 		}
 	} else if len(data) == 64 { // Point compression
@@ -412,7 +412,7 @@ func (curve *altbn128) UnmarshalGT(data []byte) (PointT, bool) {
 		return nil, false
 	}
 	curvePoint := new(bn256.GT)
-	if _, err := curvePoint.Unmarshal(data); err == nil {
+	if _, success := curvePoint.Unmarshal(data); success {
 		return altbn128PointT{curvePoint}, true
 	}
 	return nil, false

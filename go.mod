@@ -10,7 +10,7 @@ require (
 )
 
 require (
-	github.com/cloudflare/bn256 v0.0.0-20241212004005-a4a408366973
+	github.com/Overclock-Validator/crypto v0.0.0-20250305201602-3a1f344cde60
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/philsippl/bls12 v0.0.0-20210305152037-695a40105eda // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
