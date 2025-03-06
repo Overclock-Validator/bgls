@@ -139,36 +139,21 @@ func (curve *altbn128) Pair(g1Point Point, g2Point Point) (PointT, bool) {
 	return nil, false
 }
 
+func (curve *altbn128) PairingCheck(g1Points []Point, g2Points []Point) bool {
+	g1s := make([]*bn256.G1, len(g1Points))
+	g2s := make([]*bn256.G2, len(g1Points))
+
+	for i := range len(g1Points) {
+		g1s[i] = g1Points[i].(*altbn128Point1).point
+		g2s[i] = g2Points[i].(*altbn128Point2).point
+	}
+
+	return bn256.PairingCheck(g1s, g2s)
+}
+
 func (curve *altbn128) PairingProduct(g1Points []Point, g2Points []Point) (PointT, bool) {
 	return concurrentPairingProduct(curve, g1Points, g2Points)
 }
-
-/*func (curve *altbn128) PairingCheck(a []Point, b []Point) bool {
-	bn256.Miller()
-	acc := new(gfP12)
-	acc.SetOne()
-
-	for i := 0; i < len(a); i++ {
-		if a[i].p.IsInfinity() || b[i].p.IsInfinity() {
-			continue
-		}
-		acc.Mul(acc, miller(b[i].p, a[i].p))
-	}
-	return finalExponentiation(acc).IsOne()
-}*/
-
-/*func PairingCheck(a []*G1, b []*G2) bool {
-	acc := new(gfP12)
-	acc.SetOne()
-
-	for i := 0; i < len(a); i++ {
-		if a[i].p.IsInfinity() || b[i].p.IsInfinity() {
-			continue
-		}
-		acc.Mul(acc, miller(b[i].p, a[i].p))
-	}
-	return finalExponentiation(acc).IsOne()
-}*/
 
 // ToAffineCoords returns the affine coordinate representation of the point
 // in the form: [X, Y]

@@ -44,11 +44,12 @@ type CurveSystem interface {
 	g1XToYSquared(*big.Int) *big.Int
 
 	Pair(Point, Point) (PointT, bool)
+
 	// Product of Pairings
 	PairingProduct([]Point, []Point) (PointT, bool)
 
 	// Pairing check
-	//PairingCheck([]Point, []Point) bool
+	PairingCheck(g1Points []Point, g2Points []Point) bool
 }
 
 // Point is a way to represent a point on G1 or G2, in the first two elliptic curves.
