@@ -4,6 +4,8 @@ github.com/Overclock-Validator/crypto v0.0.0-20250306094427-916af9973d6a h1:DOBt
 github.com/Overclock-Validator/crypto v0.0.0-20250306094427-916af9973d6a/go.mod h1:ZhRHOaVg8I1gg0VK4wmqOQPnlgPgKFT9McZ+TCW/hBA=
 github.com/Overclock-Validator/crypto v0.0.0-20250306233942-23fd7478ec8d h1:Rhu0cTPiA3Kn74bxoZLJ5mKk/kift/CFb6ORpPwsO5s=
 github.com/Overclock-Validator/crypto v0.0.0-20250306233942-23fd7478ec8d/go.mod h1:ZhRHOaVg8I1gg0VK4wmqOQPnlgPgKFT9McZ+TCW/hBA=
+github.com/Overclock-Validator/crypto v0.0.0-20250307094320-aaf52fac5261 h1:Y715CmRx2hFfXguU0xSlGkZZ7/RYpKutWffZUiQSPvw=
+github.com/Overclock-Validator/crypto v0.0.0-20250307094320-aaf52fac5261/go.mod h1:ZhRHOaVg8I1gg0VK4wmqOQPnlgPgKFT9McZ+TCW/hBA=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dchest/blake2b v1.0.0 h1:KK9LimVmE0MjRl9095XJmKqZ+iLxWATvlcpVFRtaw6s=

@@ -10,7 +10,7 @@ require (
 )
 
 require (
-	github.com/Overclock-Validator/crypto v0.0.0-20250306233942-23fd7478ec8d
+	github.com/Overclock-Validator/crypto v0.0.0-20250307094320-aaf52fac5261
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/philsippl/bls12 v0.0.0-20210305152037-695a40105eda // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
