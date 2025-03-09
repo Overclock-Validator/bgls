@@ -5,6 +5,7 @@ package curves
 
 import (
 	"bytes"
+	"encoding/hex"
 	"math/big"
 
 	"github.com/Overclock-Validator/crypto/bn256"
@@ -434,6 +435,10 @@ func (curve *altbn128) g2XToYSquared(x *complexNum) *complexNum {
 	result := getComplexZero()
 	result.Exp(x, three, altbnG1Q)
 	result.Add(result, altbnG2B, altbnG1Q)
+	print("im: \n")
+	print(hex.EncodeToString(result.im.Bytes()))
+	print("re: \n")
+	print(hex.EncodeToString(result.re.Bytes()))
 	return result
 }
 
